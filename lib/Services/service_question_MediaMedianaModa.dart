@@ -15,7 +15,7 @@ class GenerateQuestionMedia {
     } else if (question[1] == "mediana") {
       result = _mediana(resultRnd);
     } else if (question[1] == "invervalo") {
-      result = _MaiorIntervalo(resultRnd);
+      result = _maiorIntervalo(resultRnd);
     }
 
     QuestionStruct questionStruct = new QuestionStruct();
@@ -38,6 +38,7 @@ class GenerateQuestionMedia {
     }
 
     var rnd = Random();
+
     int index = rnd.nextInt(3);
     if (index == 2) {
       return ["Qual a media dos seguintes números?\n$values", "media"];
@@ -52,7 +53,7 @@ class GenerateQuestionMedia {
 
   List<int> _generateRandomValues() {
     var rnd = Random();
-    var range = 5 + rnd.nextInt(10 - 5);
+    var range = 2 + rnd.nextInt(5 - 2);
     List<int> listValues = List.generate(range, (index) => 0);
     for (int i = 0; i < listValues.length; i++) {
       int value = rnd.nextInt(50);
@@ -97,7 +98,7 @@ class GenerateQuestionMedia {
     return list[list.length ~/ 2].toDouble();
   }
 
-  double _MaiorIntervalo(List<int> list) {
+  double _maiorIntervalo(List<int> list) {
     int min = list[0], max = -1;
     for (int i = 0; i < list.length; i++) {
       if (list[i] < min) {

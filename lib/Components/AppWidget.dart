@@ -10,19 +10,18 @@ class Pair<T1, T2> {
 }
 
 class AppWidget extends StatelessWidget {
-  static double sizeScreenWidth = 0;
+  static var _colorsBorders = [Colors.red, Colors.yellow, Colors.green];
 
   @override
   Widget build(BuildContext context) {
     return Container();
   }
 
-  static void dialog(
-      {required BuildContext context,
-      String title = "Alerta",
-      String subtitle = "Mensagem",
-      VoidCallback? voidCallback,
-      ElevatedButton? newOption}) async {
+  static dialogGame({
+    required BuildContext context,
+    String title = "Alerta",
+    String subtitle = "Mensagem",
+  }) async {
     return await showDialog(
       context: context,
       barrierDismissible: false,
@@ -31,17 +30,13 @@ class AppWidget extends StatelessWidget {
           title: new Text(title),
           content: new Text(subtitle),
           actions: <Widget>[
-            if (newOption != null) ...{newOption},
-            new ElevatedButton(
-              child: new Text("Fechar"),
-              onPressed: () {
-                if (voidCallback == null) {
-                  Navigator.of(context).pop();
-                } else {
-                  Navigator.of(context).pop();
-                  voidCallback();
-                }
-              },
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text("Ok"),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text("Cancelar"),
             ),
           ],
         );
@@ -52,6 +47,16 @@ class AppWidget extends StatelessWidget {
   //* Função responsavel por fazer a mudança de telas, recebe como parâmetro um Widget(Deve ser uma screen, caso não, resulta em erro)
   static screenChange(BuildContext context, Widget screen) async {
     return await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => screen,
+      ),
+    );
+  }
+
+  //* Função responsavel por fazer a mudança de telas, recebe como parâmetro um Widget(Deve ser uma screen, caso não, resulta em erro)
+  static screenChangeAndRemove(BuildContext context, Widget screen) async {
+    return await Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => screen,
@@ -130,65 +135,6 @@ class AppWidget extends StatelessWidget {
     );
   }
 
-  static Widget buttonInkCostumer({
-    Color color = Colors.blue,
-    IconData icon = Icons.add,
-    double sizeIcon = 30,
-    double paddingButton = 0,
-    VoidCallback? voidCallback,
-  }) {
-    return Material(
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(const Radius.circular(6)),
-          shape: BoxShape.rectangle,
-          color: color,
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(8),
-          //Something large to ensure a circle
-          onTap: voidCallback,
-          child: Padding(
-            padding: EdgeInsets.all(paddingButton == null ? 2 : paddingButton),
-            child: Icon(
-              icon,
-              color: Colors.white,
-              size: sizeIcon,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  static Widget buttonInkCostumerCircle(
-      {Color colorBorder = Colors.blue,
-      Color colorIcon = Colors.blue,
-      IconData icon = Icons.add,
-      double sizeIcon = 30,
-      VoidCallback? voidCallback}) {
-    return Material(
-      child: Ink(
-        decoration: BoxDecoration(
-          border: Border.all(width: 1),
-          shape: BoxShape.circle,
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(8),
-          onTap: voidCallback,
-          child: Padding(
-            padding: EdgeInsets.all(2),
-            child: Icon(
-              icon,
-              color: colorIcon,
-              size: sizeIcon,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   static Widget textDefault({
     String text = "",
     Color color = Colors.black,
@@ -206,20 +152,6 @@ class AppWidget extends StatelessWidget {
     );
   }
 
-  static Widget iconButtonDefault(
-    Icon icon,
-    double size,
-    Color color, {
-    required VoidCallback callback,
-  }) {
-    return IconButton(
-      icon: icon,
-      iconSize: size,
-      color: color,
-      onPressed: callback,
-    );
-  }
-
   static Widget buttonDefault(
     String text, {
     required VoidCallback callback,
@@ -231,7 +163,7 @@ class AppWidget extends StatelessWidget {
       height: mHeight,
       child: ElevatedButton(
         onPressed: callback,
-        child: textDefault(text: text, color: Colors.white, size: 25),
+        child: textDefault(text: text, color: Colors.white, size: 20),
       ),
     );
   }
@@ -288,6 +220,28 @@ class AppWidget extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  static Widget avatarCircularUser(
+    String? pathImage, {
+    required int borderLevel,
+    String defaultImage =
+        "https://tradingforwomen.com/wp-content/uploads/2018/05/default-user.png",
+  }) {
+    return Container(
+      height: 120,
+      width: 120,
+      decoration: new BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(width: 5, color: _colorsBorders[borderLevel]),
+        image: new DecorationImage(
+          fit: BoxFit.fill,
+          image: pathImage != null
+              ? NetworkImage(pathImage)
+              : NetworkImage(defaultImage),
+        ),
+      ),
     );
   }
 }

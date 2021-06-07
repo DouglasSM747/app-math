@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1002119114628",
+    "project_id": "app-math-64526",
+    "storage_bucket": "app-math-64526.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002119114628:android:7e2c644fda388dc55377d1",
+        "android_client_info": {
+          "package_name": "com.example.app_math"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002119114628-33duc69llg7q06paltsmm9167ff0992q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_math",
+            "certificate_hash": "d4cc85ec46e1c697f365e2fb3832e437b417eaf9"
+          }
+        },
+        {
+          "client_id": "1002119114628-1om9cv8qhj986kfdte08ne6udmk7iv4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgrZ243D9pREb0oS5QyU9LdygD7SsX-IM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002119114628-1om9cv8qhj986kfdte08ne6udmk7iv4t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

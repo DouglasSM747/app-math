@@ -1,5 +1,7 @@
+import 'package:app_math/Auth/service_auth.dart';
 import 'package:app_math/Components/AppWidget.dart';
 import 'package:app_math/Pages/menu.dart';
+import 'package:app_math/Services/service_data_user.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,16 +12,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController inputLogin = new TextEditingController(text: "");
   TextEditingController inputPassword = new TextEditingController(text: "");
+  ServiceAuth serviceAuth = new ServiceAuth();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  logIn(TypeLogin typeLogin) async {
+    bool result = await serviceAuth.login(typeLogin);
+    if (result == true) {
+      AppWidget.screenChangeAndRemove(context, MenuPage());
+    } else {
+      print("Falha ao Logar");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    var widthFull = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -29,48 +34,72 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-              child: AppWidget.textDefault(
-                text: "Bem Vindo :)",
-                color: Color(0xFF333333),
-                size: 36.0,
+            userCard(),
+            SizedBox(height: 20),
+            Container(
+              width: MediaQuery.of(context).size.width - 100,
+              height: 60,
+              child: ElevatedButton(
+                onPressed: () async => await logIn(TypeLogin.GoogleLogin),
+                child: buttonGoogleLogin(),
               ),
             ),
+            SizedBox(height: 5),
+            AppWidget.textDefault(text: "Ou ...", size: 20),
+            SizedBox(height: 5),
+            AppWidget.buttonDefault(
+              "Continuar como visitante!",
+              mWidth: MediaQuery.of(context).size.width - 100,
+              callback: () async => await logIn(TypeLogin.Anonymous),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buttonGoogleLogin() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(60.0)),
+            color: Colors.white,
+          ),
+          child: Image.asset(
+            "assets/images/icon_google.png",
+            height: 40,
+          ),
+        ),
+        SizedBox(width: 10),
+        AppWidget.textDefault(
+          text: "Usar Conta Google!",
+          size: 18,
+          color: Colors.white,
+        ),
+      ],
+    );
+  }
+
+  Widget userCard() {
+    return Card(
+      elevation: 5,
+      child: Container(
+        height: 220,
+        width: MediaQuery.of(context).size.width - 100,
+        child: Column(
+          children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child: AppWidget.textFormFieldDefault(
-                controller: inputLogin,
-                textLabel: "Usuário",
-                sizeLabel: 15,
-                sizeInput: 15,
-                paddingHorizontal: 20.0,
-                paddingVertical: 20.0,
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset(
+                "assets/images/defaultUser.png",
+                height: 140,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child: AppWidget.textFormFieldDefault(
-                controller: inputPassword,
-                textLabel: "Senha",
-                sizeLabel: 15,
-                sizeInput: 15,
-                paddingHorizontal: 20.0,
-                paddingVertical: 20.0,
-                isObscureText: true,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child: AppWidget.buttonDefault(
-                "Entrar",
-                mWidth: 250,
-                callback: () => AppWidget.screenChange(
-                  context,
-                  MenuPage(),
-                ),
-              ),
-            ),
+            SizedBox(height: 10),
+            AppWidget.textDefault(text: "Olá, Visitante :)", size: 30),
           ],
         ),
       ),

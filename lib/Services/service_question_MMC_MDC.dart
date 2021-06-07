@@ -36,11 +36,13 @@ class GenerateQuestionMMCeMDC {
 
   int _mdc(int num1, int num2) {
     int resto;
+    if (num2 == 0) num2 = 4;
     do {
       resto = num1 % num2;
       num1 = num2;
       num2 = resto;
     } while (resto != 0);
+
     return num1;
   }
 

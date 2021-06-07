@@ -49,28 +49,29 @@ class FormatQuestionsResult {
     var listStatusResult = _questionsStatusEndGame(listQuestions);
 
     return ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: listStatusResult.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 50,
-            width: 100,
-            child: Row(
-              children: [
-                Text(
-                  "${listStatusResult[index].typeQuestion} : ${listStatusResult[index].quantAcceptedsQuestions} / ${listStatusResult[index].quantAllQuestions} ",
-                ),
-                if (listStatusResult[index].rating == Rating.LOW) ...{
-                  Icon(Icons.account_circle_outlined, color: Colors.red)
-                } else if (listStatusResult[index].rating == Rating.MEDIUM) ...{
-                  Icon(Icons.account_circle_outlined, color: Colors.yellow)
-                } else ...{
-                  Icon(Icons.account_circle_outlined, color: Colors.green)
-                }
-              ],
-            ),
-          );
-        });
+      padding: const EdgeInsets.all(8),
+      itemCount: listStatusResult.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          height: 50,
+          width: 100,
+          child: Row(
+            children: [
+              Text(
+                "${listStatusResult[index].typeQuestion} : ${listStatusResult[index].quantAcceptedsQuestions} / ${listStatusResult[index].quantAllQuestions} ",
+              ),
+              if (listStatusResult[index].rating == Rating.LOW) ...{
+                Icon(Icons.account_circle_outlined, color: Colors.red)
+              } else if (listStatusResult[index].rating == Rating.MEDIUM) ...{
+                Icon(Icons.account_circle_outlined, color: Colors.yellow)
+              } else ...{
+                Icon(Icons.account_circle_outlined, color: Colors.green)
+              }
+            ],
+          ),
+        );
+      },
+    );
   }
 
   static int _sumElementsInList(

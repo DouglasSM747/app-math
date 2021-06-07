@@ -16,6 +16,43 @@ class SelectTypeQuestions {
   List<QuestionStruct> getListQuestions() {
     if (_gameType == type_game.DIVERSOS) {
       return _typeQuestionsDiversos();
+    } else if (_gameType == type_game.Q_CONJUNTOS) {
+      // * GERANDO ATIVIDADES EXPOENTES
+      return new List.generate(
+        20,
+        (index) => new GenerateQuestionExpoentes().generateQuestionExpoentes(),
+      );
+    } else if (_gameType == type_game.Q_EXPOENTES) {
+      // * GERANDO ATIVIDADES EXPOENTES
+      return new List.generate(
+        20,
+        (index) => new GenerateQuestionExpoentes().generateQuestionExpoentes(),
+      );
+    } else if (_gameType == type_game.Q_MEDIA_MEDIANA_INTERVALO) {
+      // * GERANDO ATIVIDADES MEDIA MEDIANA INTERVALO
+      return new List.generate(
+        20,
+        (index) => new GenerateQuestionMedia().generateQuestioMedia(),
+      );
+    } else if (_gameType == type_game.Q_MMC_MDC) {
+      // * GERANDO ATIVIDADES MMC E MDC
+      return new List.generate(
+        20,
+        (index) => new GenerateQuestionMMCeMDC().generateQuestionMMCeMDC(),
+      );
+    } else if (_gameType == type_game.Q_NUMBER_PRIME) {
+      // * GERANDO ATIVIDADES NUMERO PRIMO
+      return new List.generate(
+        20,
+        (index) => new GenerateQuestionNumberPrime().generateQuestionPrime(),
+      );
+    } else if (_gameType == type_game.Q_REGRA_TRES) {
+      // * GERANDO ATIVIDADES REGRA DE TRES
+      return new List.generate(
+        20,
+        (index) =>
+            new GenerateQuestionRegraDeTres().generateQuestionRegraDeTres(),
+      );
     } else {
       return new List.generate(0, (index) => new QuestionStruct());
     }

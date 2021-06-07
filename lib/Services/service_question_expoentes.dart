@@ -7,11 +7,10 @@ class GenerateQuestionExpoentes {
   GenerateQuestionExpoentes();
 
   QuestionStruct generateQuestionExpoentes() {
-    int v1, v2, v3, v4;
+    int v1, v2, v4;
     List<int> resultRnd = _generateRandomValues();
     v1 = resultRnd[0];
     v2 = resultRnd[1];
-    v3 = resultRnd[2];
     v4 = resultRnd[3];
 
     int result = (pow(v1 + v2, v4)).toInt();
